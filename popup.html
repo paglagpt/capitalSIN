@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capital Sin</title>
+  <title>DirtyCHAT</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Capital Sin</h2>
+  <h2>DirtyCHAT</h2>
   
   <!-- Participant Customization -->
   <section>
@@ -28,20 +28,25 @@
     <label>Footer Image: <input type="file" id="footer-img" accept="image/*"></label>
   </section>
   
-  <!-- Notion Export -->
-  <section>
-    <h3>Notion Export</h3>
-    <label>Notion Integration Token: <input id="notion-token" type="password" placeholder="Your Notion API Token"></label>
-    <label>Notion DB/Page ID: <input id="notion-db" placeholder="Optional: Database or Page ID"></label>
-    <button id="to-notion">Export to Notion</button>
-  </section>
-  
   <!-- Local Export -->
   <section>
     <h3>Local Export</h3>
-    <button id="export-html">HTML</button>
-    <button id="export-md">Markdown</button>
-    <button id="export-pdf">PDF</button>
+    <div class="button-grid">
+      <button id="export-html">HTML</button>
+      <button id="export-md">Markdown</button>
+      <button id="export-pdf">PDF</button>
+      <button id="export-doc">Word (.doc)</button>
+    </div>
+  </section>
+
+  <!-- Cloud Export -->
+  <section>
+    <h3>Cloud Export</h3>
+    <label>Notion Token: <input id="notion-token" type="password" placeholder="Notion API Token"></label>
+    <label>Notion ID: <input id="notion-db" placeholder="Database or Page ID"></label>
+    <button id="to-notion">Export to Notion</button>
+    <hr>
+    <button id="to-gdrive">Export to Google Drive</button>
   </section>
   
   <!-- Screenshots -->
@@ -73,7 +78,7 @@
       </label>
       <input id="gemini-custom" style="display:none" placeholder="Custom prompt">
       <button id="gemini-run">Run Gemini</button>
-      <div id="gemini-result" style="white-space:pre-wrap;font-size:0.92em;margin-top:6px;border:1px solid #ccc;padding:8px;max-height:300px;overflow-y:auto;"></div>
+      <div id="gemini-result" class="gemini-res"></div>
     </details>
   </section>
   

@@ -1,10 +1,10 @@
-# Capital Sin
+# DirtyCHAT
 
-Private Chrome extension to export TogetherChat conversations with deep customization and Gemini-powered AI tools. Supports Notion export, local downloads, attachments, screenshot, and advanced editing.
+Private Chrome extension to export conversations from multiple AI platforms (ChatGPT, Grok, Gemini, DeepSeek, Qwen, and more) with deep customization and Gemini-powered AI tools. Supports Notion export, local downloads, attachments, screenshot, and advanced editing.
 
 ## Features
 
-- **Export**: TogetherChat conversations to Notion (via your integration token) or as HTML, Markdown, or PDF.
+- **Export**: Conversations to Notion, Google Drive, or as HTML, Markdown, PDF, and DOC.
 - **Customizations**: Rename participants, custom header/footer images, edit messages and timestamps.
 - **AI Agent (Gemini)**: Summarize, analyze, or rewrite chat with Gemini API (optional, never on by default).
 - **Attachments**: Add files (images, PDFs, Markdown) to transcript.
@@ -51,10 +51,12 @@ No analytics, telemetry, or data leakage. Only you control where your chats and 
 - Attach files (images, PDFs, Markdown)
 
 ### 3. Export Options
-- **Notion**: Direct integration with Notion API (requires token)
+- **Notion**: Direct integration with Notion API
+- **Google Drive**: Save directly to your cloud storage
 - **HTML**: Styled, preserves layout
 - **Markdown**: Structured, code-friendly
 - **PDF**: Print-ready format
+- **DOC**: Microsoft Word compatible format
 
 ### 4. AI Agent (Gemini)
 Optional AI-powered analysis:

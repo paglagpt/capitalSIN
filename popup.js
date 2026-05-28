@@ -1,4 +1,4 @@
-// Capital Sin - Popup Logic
+// DirtyCHAT - Popup Logic
 
 let chat = [];
 let aiName = "AI", userName = "You";
@@ -15,12 +15,13 @@ function fileToDataURL(file, fn) {
 // Fetch chat from content script
 function fetchChat(cb) {
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+    if (!tabs[0]) return setStatus("Error: No active tab found.");
     chrome.tabs.sendMessage(tabs[0].id, {action: "extract_chat"}, response => {
       if (response && response.chat) {
         chat = response.chat;
         cb(chat);
       } else {
-        setStatus("Error: Could not extract chat. Make sure you're on TogetherChat.");
+        setStatus("Error: Could not extract chat. Make sure you're on a supported AI platform.");
       }
     });
   });
@@ -44,7 +45,7 @@ document.getElementById('attach-file').onchange = e => {
 
 // Build HTML export
 function buildHTML(chat, opts={}) {
-  let html = `<html><head><meta charset="UTF-8"><title>TogetherChat Export</title>
+  let html = `<html><head><meta charset="UTF-8"><title>DirtyCHAT Export</title>
     <style>
     body{font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;}
     .chat-container{max-width:800px;margin:auto;background:white;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
@@ -80,7 +81,7 @@ function buildHTML(chat, opts={}) {
 
 // Build Markdown export
 function buildMarkdown(chat) {
-  let md = `# TogetherChat Export\n\n`;
+  let md = `# DirtyCHAT Export\n\n`;
   md += `**Exported:** ${new Date().toLocaleString()}\n\n`;
   
   chat.forEach((m) => {
@@ -105,7 +106,7 @@ document.getElementById('export-html').onclick = () =>
   fetchChat(c => {
     const c_edited = applyEdits(c);
     const html = buildHTML(c_edited, {headerImg, footerImg});
-    downloadFile('togetherchat-' + Date.now() + '.html', 'text/html', html);
+    downloadFile('dirtychat-' + Date.now() + '.html', 'text/html', html);
     setStatus('✓ HTML exported');
   });
 
@@ -113,7 +114,7 @@ document.getElementById('export-md').onclick = () =>
   fetchChat(c => {
     const c_edited = applyEdits(c);
     const md = buildMarkdown(c_edited);
-    downloadFile('togetherchat-' + Date.now() + '.md', 'text/markdown', md);
+    downloadFile('dirtychat-' + Date.now() + '.md', 'text/markdown', md);
     setStatus('✓ Markdown exported');
   });
 
@@ -127,9 +128,21 @@ document.getElementById('export-pdf').onclick = () =>
     iframe.contentDocument.open();
     iframe.contentDocument.write(html);
     iframe.contentDocument.close();
-    html2pdf().from(iframe.contentDocument.body).save('togetherchat-' + Date.now() + '.pdf');
+    html2pdf().from(iframe.contentDocument.body).save('dirtychat-' + Date.now() + '.pdf');
     setTimeout(()=>document.body.removeChild(iframe),2000);
     setStatus('✓ PDF export triggered');
+  });
+
+document.getElementById('export-doc').onclick = () =>
+  fetchChat(c => {
+    const c_edited = applyEdits(c);
+    const html = buildHTML(c_edited, {headerImg, footerImg});
+    const docContent = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head><meta charset='utf-8'><title>Export DOC</title></head>
+      <body>${html}</body></html>`;
+    downloadFile('dirtychat-' + Date.now() + '.doc', 'application/msword', docContent);
+    setStatus('✓ DOC exported');
   });
 
 // Screenshot full page
@@ -187,6 +200,15 @@ document.getElementById('to-notion').onclick = () => {
       setStatus(ok?"✓ Exported to Notion":("✗ "+(msg||"Error")))
     );
   });
+};
+
+// Google Drive Placeholder
+document.getElementById('to-gdrive').onclick = () => {
+  setStatus("Google Drive export requires OAuth. Redirecting...");
+  // In a real extension, this would trigger the identity API or a server-side OAuth flow
+  // For now, we'll simulate a redirect or provide instructions
+  const url = "https://accounts.google.com/o/oauth2/v2/auth";
+  setStatus("✓ Google Drive integration pending (OAuth required)");
 };
 
 // Gemini AI Agent

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Capital Sin",
-  "description": "Privately export TogetherChat conversations with customization, Gemini, and Notion API.",
-  "version": "1.0.0",
+  "name": "DirtyCHAT",
+  "description": "Privately export conversations from multiple AI platforms with customization, Gemini, and Notion API.",
+  "version": "1.1.0",
   "permissions": [
     "activeTab",
     "scripting",
@@ -10,7 +10,19 @@
     "storage"
   ],
   "host_permissions": [
-    "https://chat.together.ai/*"
+    "https://chat.together.ai/*",
+    "https://chatgpt.com/*",
+    "https://grok.com/*",
+    "https://gemini.google.com/*",
+    "https://aistudio.google.com/*",
+    "https://chat.qwenlm.ai/*",
+    "https://qwen.ai/*",
+    "https://chat.deepseek.com/*",
+    "https://z.ai/*",
+    "https://hailuoai.com/*",
+    "https://mimo.mi.com/*",
+    "https://platform.xiaomimimo.com/*",
+    "https://*.google.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -26,7 +38,20 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chat.together.ai/*"],
+      "matches": [
+        "https://chat.together.ai/*",
+        "https://chatgpt.com/*",
+        "https://grok.com/*",
+        "https://gemini.google.com/*",
+        "https://aistudio.google.com/*",
+        "https://chat.qwenlm.ai/*",
+        "https://qwen.ai/*",
+        "https://chat.deepseek.com/*",
+        "https://z.ai/*",
+        "https://hailuoai.com/*",
+        "https://mimo.mi.com/*",
+        "https://platform.xiaomimimo.com/*"
+      ],
       "js": ["content.js"],
       "css": ["style.css"]
     }
